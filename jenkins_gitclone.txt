@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('cloning') {
+            steps {
+                sh "git clone https://github.com/sagari-a/terraform_cicd.git"
+            }
+        }
+        stage('init') {
+            steps{
+                dir('terraform_cicd') { 
+                    sh "terraform init"
+                    
+                }
+            }
+        }
+        stage('plan') {
+            steps{
+                dir('terraform_cicd') { 
+                    sh "terraform plan"
+                    
+                }
+            }
+        }
+        stage('action') {
+            steps{
+                dir('terraform_cicd') { 
+                    sh "terraform ${action} --auto-approve"
+                }
+            }
+        }
+    }
+}
+        
