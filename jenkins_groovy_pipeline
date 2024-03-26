@@ -6,6 +6,7 @@ node {
         sh "terraform init -reconfigure"
     }
     stage('action') {
+        echo "Terraform action is --> ${action}"
         sh "terraform ${action} -auto-approve"
     }
 }
