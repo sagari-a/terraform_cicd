@@ -1,0 +1,11 @@
+node {
+    stage('checkout') { 
+        git branch: 'main', url: 'https://github.com/sagari-a/terraform_cicd_jenkins.git'
+    }
+    stage('init') {
+        sh "terraform init -reconfigure"
+    }
+    stage('action') {
+        sh "terraform ${action} -auto-approve"
+    }
+}
