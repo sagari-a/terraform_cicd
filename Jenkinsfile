@@ -5,6 +5,7 @@ pipeline {
             steps {
                 git branch: 'main', url: 'https://github.com/sagari-a/terraform_cicd_jenkins.git'
             }
+        }   
          stage('init') {
             steps {
                 sh "terraform init"
