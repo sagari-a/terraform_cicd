@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/sagari-a/terraform_cicd_jenkins.git'
+                checkout scm
             }
         }   
          stage('init') {
@@ -18,6 +18,7 @@ pipeline {
         }
         stage('action') {
             steps {
+                echo "Terraform action is --> ${action}"
                 sh "terraform ${action} -auto-approve"
             }
         }
