@@ -1,8 +1,10 @@
+--This is the method to apply jenkins to a directory within the repo
+
 --Give t2.medium instance iam permissions of s3bucket and ec2instance full access for this to work!!
 
 
---Goto terraformpractice repo
---Goto day2instance_bucket
+--Goto terraformpractice REPO
+--Goto day2instance_bucket DIRECTORY
 
 --We can apply the terraform in this directory in jenkins by typing in the pipeline script
 
@@ -61,8 +63,10 @@ node {
 }
 
 
---To apply Jenkins SCM pipeline in 'day2instance_bucket' FOLDER in 'terraformpractice' REPO
---We go to 'terraformpractice' REPO and go to 'day2instance_bucket' FOLDER and have created the 2 files :
+--To apply Jenkins SCM pipeline in 'day2instance_bucket' DIRECTORY in 'terraformpractice' REPO
+--We go to 'terraformpractice' REPO and go to 'day2instance_bucket' DIRECTORY and have created the 2 files :
 
-1)jenkins_pipeline_scm
-2)jenkins_groovy_scm
+1)jenkins_pipeline_scm **
+2)jenkins_groovy_scm **
+
+jenkins path will be : day2instance_bucket/**
