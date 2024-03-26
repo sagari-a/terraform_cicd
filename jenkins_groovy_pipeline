@@ -3,7 +3,7 @@ node {
         git branch: 'main', url: 'https://github.com/sagari-a/terraform_cicd_jenkins.git'
     }
     stage('init') {
-        sh "terraform init -reconfigure"
+        sh "terraform init"
     }
     stage('action') {
         echo "Terraform action is --> ${action}"
