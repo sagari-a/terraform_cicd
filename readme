@@ -64,9 +64,11 @@ node {
 
 
 --To apply Jenkins SCM pipeline in 'day2instance_bucket' DIRECTORY in 'terraformpractice' REPO
---We go to 'terraformpractice' REPO and go to 'day2instance_bucket' DIRECTORY and have created the 2 files :
+--We go to 'terraformpractice' REPO and have created the 2 files :
 
-1)jenkins_pipeline_scm **
-2)jenkins_groovy_scm **
+1)jenkins_pipeline_scm_day2instance_bucket
+2)jenkins_groovy_scm_day2instance_bucket
 
-jenkins path will be : day2instance_bucket/**
+go to jenkins and select the required jenkins filename in the 'terraformpractice' REPO and execute :)
+
+
