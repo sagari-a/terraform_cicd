@@ -1,0 +1,126 @@
+Maven running on t2.micro 
+
+----#Commands to run ec2 connect:
+
+sudo su -
+yum install maven -y
+yum install tree -y (optional)
+yum install git -y
+git clone https://github.com/CloudTechDevOps/project-1-maven-jenkins-CICD-docker-eks-.git
+ls
+cd project-1-maven-jenkins-CICD-docker-eks-
+mvn install  (this creates the jar file)
+
+-----#To check  the jar file in folder project-1-maven-jenkins-CICD-docker-eks-:
+
+
+ls
+cd webapp
+cd target
+ls (we can see webapp.war file)
+
+------#Now to install tomcat: 
+
+cd ~
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.86/bin/apache-tomcat-9.0.86.tar.gz
+tar -xvzf apache-tomcat-9.0.86.tar.gz
+rm -rf apache-tomcat-9.0.86.tar.gz
+
+
+-----#Rename apache-tomcat-9.0.86 to tomcat
+
+mv apache-tomcat-9.0.86 tomcat
+
+cd~
+cd tomcat/bin
+sh startup.sh (to start tomcat)
+# sh shutdown.sh (to shutdown tomcat. Dont use run this unless necessary.This is just for info)
+copy ec2instance server address xxxxx and paste it into browser xxxxx:8080
+cd ~
+cd tomcat
+find / -name context.xml
+
+----after finding the file need to open with vi related manager files 
+
+example -- vi /tomcat/webapps/manager/META-INF/context.xml
+
+add comment it below two line <!--     -->
+
+ ex: <!--  
+     <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+     allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> 
+     -->
+hit escape and wq!
+ 
+2.vi /tomcat/webapps/host-manager/META-INF/context.xml
+
+     <!--
+    <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+     allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> 
+     -->
+hit escape and wq!
+
+we then goto tomcat/conf/
+vi tomcat-users.xml
+
+<!--
+  <role rolename="tomcat"/>
+  <role rolename="role1"/>
+  <user username="tomcat" password="<must-be-changed>" roles="tomcat"/>
+  <user username="both" password="<must-be-changed>" roles="tomcat,role1"/>
+  <user username="role1" password="<must-be-changed>" roles="role1"/>
+-->
+</tomcat-users>
+
+remove <!-- and --> and everything in between and paste
+
+  <role rolename="manager-gui"/>
+  <role rolename="manager-script"/>
+  <role rolename="manager-jmx"/>
+  <role rolename="manager-status"/>
+  <user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+  <user username="deployer" password="deployer" roles="manager-script"/>
+  <user username="tomcat" password="s3cret" roles="manager-gui"/>
+</tomcat-users>
+
+
+hit escape and wq!
+refresh tomcat browser
+enter username and password. both are admin.log in
+then come back to ec2connect client
+
+cd ..
+cd webapps
+pwd
+we get /root/tomcat/webapps (copy this path)
+
+we then move the webapp.jar file from project-1-maven-jenkins-CICD-docker-eks-/webapp/target/ to the above path by
+cd ~
+cd project-1-maven-jenkins-CICD-docker-eks-
+cd webapp
+cd target
+mv webapp.war /root/tomcat/webapps
+ls
+we now see the webapp.war in webapps folder
+goto tomcat
+refresh chrome
+we know see under the Applications :
+/webapp
+click on it 
+or 
+enter in browser http://43.205.239.1:8080/webapp/ 
+Success!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
